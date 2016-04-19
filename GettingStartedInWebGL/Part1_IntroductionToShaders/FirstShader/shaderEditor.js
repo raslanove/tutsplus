@@ -223,10 +223,7 @@ function NOMoneShaderEditor(parentElement) {
    // Webgl,
    this.gl = null;
    this.shaderProgram = null;
-<<<<<<< HEAD
-=======
    this.shaderProgramReady = false;   
->>>>>>> origin/master
    this.vertexPositionAttribute = null;
    this.timeUniform = null;
    this.apectRatioUniform = null;
@@ -251,22 +248,12 @@ function NOMoneShaderEditor(parentElement) {
       "}";
 
    this.compile = function() {
-<<<<<<< HEAD
-=======
    
       // Remove the old program,
->>>>>>> origin/master
       try {
          this.gl.disableVertexAttribArray(this.vertexPositionAttribute);
 	      this.gl.deleteProgram(this.shaderProgram);
 	   } catch (e) {}
-<<<<<<< HEAD
-      if (this.plainEditorActive) {
-         this.initShaders(this.defaultVertexShaderCode, this.plainEditorText.value);
-      } else {
-         this.initShaders(this.defaultVertexShaderCode, this.aceEditor.session.getValue());
-      }
-=======
 	   
       if (this.plainEditorActive) {
          this.shaderProgramReady = this.initShaders(this.defaultVertexShaderCode, this.plainEditorText.value);
@@ -278,7 +265,6 @@ function NOMoneShaderEditor(parentElement) {
       if (this.shaderProgramReady) {
          requestAnimationFrame(this.drawScene);
       }      
->>>>>>> origin/master
    }.bind(this);
 
    this.initWebGL = function(canvas) {
@@ -306,11 +292,7 @@ function NOMoneShaderEditor(parentElement) {
       var vertexShader = this.createShader(vertexShaderCode, this.gl.VERTEX_SHADER);
       var fragmentShader = this.createShader(fragmentShaderCode, this.gl.FRAGMENT_SHADER);
 
-<<<<<<< HEAD
-      if ((!vertexShader) || (!fragmentShader)) return;
-=======
       if ((!vertexShader) || (!fragmentShader)) return false;
->>>>>>> origin/master
       
       this.shaderProgram = this.gl.createProgram();
       this.gl.attachShader(this.shaderProgram, vertexShader);
@@ -320,10 +302,7 @@ function NOMoneShaderEditor(parentElement) {
       // If creating the shader program failed, alert
       if (!this.gl.getProgramParameter(this.shaderProgram, this.gl.LINK_STATUS)) {
          alert("Unable to initialize the shader program.");
-<<<<<<< HEAD
-=======
          return false;
->>>>>>> origin/master
       }
 
       this.gl.useProgram(this.shaderProgram);
@@ -333,11 +312,8 @@ function NOMoneShaderEditor(parentElement) {
       this.timeUniform = this.gl.getUniformLocation(this.shaderProgram, "time");
       this.apectRatioUniform = this.gl.getUniformLocation(this.shaderProgram, "aspectRatio");
       this.resolutionUniform = this.gl.getUniformLocation(this.shaderProgram, "resolution");
-<<<<<<< HEAD
-=======
       
       return true;
->>>>>>> origin/master
    }.bind(this);
 
    this.initBuffers = function() {
@@ -354,20 +330,14 @@ function NOMoneShaderEditor(parentElement) {
    }.bind(this);
 
    this.drawScene = function() {
-<<<<<<< HEAD
-=======
-         
->>>>>>> origin/master
+
       this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
       this.gl.enable(this.gl.DEPTH_TEST);
       this.gl.depthFunc(this.gl.LEQUAL);
       this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-<<<<<<< HEAD
-=======
       if (!this.shaderProgramReady) return;
 
->>>>>>> origin/master
       var currentTime = new Date().getTime();
       var elapsedTimeSeconds = (currentTime-this.firstFrameTime)/1000.0;
       
@@ -410,12 +380,8 @@ function NOMoneShaderEditor(parentElement) {
       }
 
       this.firstFrameTime = new Date().getTime();
-<<<<<<< HEAD
-      requestAnimationFrame(this.drawScene);
-=======
       this.drawScene();
-      
->>>>>>> origin/master
+
    }.bind(this);
  
    this.setEditorModeEnabled = function(isEditor) {
