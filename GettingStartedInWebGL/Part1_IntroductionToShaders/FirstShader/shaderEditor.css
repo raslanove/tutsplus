@@ -1,0 +1,108 @@
+.nomoneShaderEditor { position:absolute; left:0px; right:0px; top:0px; bottom:0px; }
+
+.nomoneShaderEditor .ace_gutter { background: transparent !important; }
+.nomoneShaderEditor .ace_gutter-cell { background: transparent !important; }
+.nomoneShaderEditor .ace_gutter-active-line { background: transparent !important; }
+.nomoneShaderEditor .ace_scrollbar-v { top:10px !important; right:10px !important; bottom:10px !important; }
+.nomoneShaderEditor .ace_scrollbar-h { left:40px !important; right:10px !important; bottom:10px !important; }
+
+.nomoneShaderEditor .glCanvas { position:absolute; left:0px; top:0px; width:100%; height:100%; }
+.nomoneShaderEditor .uiParent { position:absolute; top:16px; left:16px; bottom:16px; right:16px; z-index:10; }
+.nomoneShaderEditor .ui { display:table; width:100%; height:100%; }
+.nomoneShaderEditor .ui .controlsRow { display:table-row; width:100%; }
+.nomoneShaderEditor .ui .controlsCell { display:table-cell; width:100%; }
+.nomoneShaderEditor .ui .rowEndControls { text-align:right; float:right; }
+.nomoneShaderEditor .ui .editorRow { display:table-row; width:100%; height:100%; }
+.nomoneShaderEditor .ui .editorCell { display:table-cell; position:relative; width:100%; height:100%; }
+.nomoneShaderEditor .ui .editorContainer { position:absolute; right:0; left:0; top:0; bottom:0; }
+.nomoneShaderEditor .ui .editorResizable { width:100%; height:100%; background:rgba(0,0,0,0.6); }
+.nomoneShaderEditor .ui .editor { 
+   position:absolute; left:0; top:0; width:100%; height:100%; 
+   background:transparent !important;
+   text-align:left; text-shadow: 1px 1px 2px #000; 
+   font-size:large !important;
+   color: #fff;
+}
+
+.nomoneShaderEditor .plainEditor { position:absolute; right:5px; left:5px; top:5px; bottom:5px; visibility:hidden; }
+.nomoneShaderEditor .plainEditorText, 
+.nomoneShaderEditor .plainEditorText:hover { 
+   padding:0;
+   border-style:none; 
+   resize:none; 
+   white-space:pre; word-wrap:normal; 
+   background:transparent; 
+}
+
+.nomoneShaderEditor { overflow: hidden; }
+
+.nomoneShaderEditor,
+.nomoneShaderEditor .bordered, 
+.nomoneShaderEditor .button, 
+.nomoneShaderEditor .nomoneShaderEditor, 
+.nomoneShaderEditor .editorResizable { 
+   border: 2px solid #BF4D28; border-radius:10px; 
+   box-shadow:0px 0px 3px #000; 
+}
+
+.nomoneShaderEditor:not(*:root) { border-radius:0; overflow:initial; }
+
+.nomoneShaderEditor .button, 
+.nomoneShaderEditor .button:hover {
+   display:inline-block; 
+   padding:5px; margin-right:10px; margin-bottom:10px; 
+   background:rgba(0,0,0,0.6); 
+   color:#ddd;
+   text-shadow:1px 1px 2px #000;
+   text-align: center;
+} 
+.nomoneShaderEditor .button:active {
+   box-shadow:0px 0px 3px #fff;    
+   background:#000; 
+   color:#fff;
+}
+
+.nomoneShaderEditor .rowEndControls .button, 
+.nomoneShaderEditor .rowEndControls .button:hover { margin-right:0; margin-left:10px; }
+
+@media all and (orientation:landscape) and (max-width: 640px) {
+   .nomoneShaderEditor .button, 
+   .nomoneShaderEditor .button:hover { font-size: x-small; }
+}
+
+@media all and (max-width: 640px) {
+   .nomoneShaderEditor .uiParent { position:absolute; top:10px; left:10px; bottom:10px; right:10px; z-index:10; }
+   .nomoneShaderEditor .ui .editor { font-size:small !important; }
+   .nomoneShaderEditor .button, 
+   .nomoneShaderEditor .button:hover { font-size:xx-small; padding:4px; margin-bottom:5px; }
+   
+   .nomoneShaderEditor .button, 
+   .nomoneShaderEditor .button:hover { margin-right:4px; }
+   
+   .nomoneShaderEditor .rowEndControls .button, 
+   .nomoneShaderEditor .rowEndControls .button:hover { margin-left:4px; }
+}
+
+/* Webkit scrollbars */
+.nomoneShaderEditor ::-webkit-scrollbar {
+   width: 6px;
+   height: 6px;
+}
+
+/* Track */
+.nomoneShaderEditor ::-webkit-scrollbar-track {
+   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+   -webkit-border-radius: 10px;
+   border-radius: 10px;
+}
+
+/* Handle */
+.nomoneShaderEditor ::-webkit-scrollbar-thumb {
+   -webkit-border-radius: 10px;
+   border-radius: 10px;
+   background: rgba(191,77,40,0.8);  
+   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+.nomoneShaderEditor ::-webkit-scrollbar-thumb:window-inactive {
+   background: rgba(191,77,40,0.4);
+}
