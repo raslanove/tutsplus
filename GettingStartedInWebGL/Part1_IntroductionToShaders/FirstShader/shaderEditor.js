@@ -26,7 +26,7 @@ function NOMoneShaderEditor(parentElement) {
    // Create the UI,
    var tempElement1, tempElement2, tempElement3, tempElement4, tempElement5, tempElement6;
    
-   this.workspaceContainer = createDOMElement("div", "nomoneShaderEditor", parentElement);   
+   this.workspaceContainer = createDOMElement("div", "nomoneShaderEditor", parentElement);
       tempElement1 = createDOMElement("div", "uiParent", this.workspaceContainer);
          this.uiNode = createDOMElement("div", "ui", tempElement1);
             tempElement3 = createDOMElement("div", "controlsRow", this.uiNode);
