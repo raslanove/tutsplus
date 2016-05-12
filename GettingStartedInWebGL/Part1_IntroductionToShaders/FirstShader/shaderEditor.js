@@ -1,3 +1,18 @@
+/*    
+@licstart  The following is the entire license notice for the 
+JavaScript code in this page.
+
+Copyright (c) 2016 Omar El Sayyed
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+@licend  The above is the entire license notice
+for the JavaScript code in this page.
+*/
 
 function createDOMElement(type, className, parentElement) {
    var element = document.createElement(type);
@@ -236,12 +251,9 @@ function NOMoneShaderEditor(parentElement) {
       "void main(void) {" +
       "   gl_Position = vec4(aVertexPosition, 1.0);" +
       "   vertexColor = (gl_Position * 0.5) + 0.5;" +
-      //"   vertexColor = (gl_Position + 1.0) * 0.5;" +
       "}";
    this.defaultFragmentShaderCode = 
-      "#ifdef GL_ES\n" +
-      "   precision highp float;\n" +
-      "#endif\n\n" +
+      "precision highp float;\n\n" +
       "uniform float time;\n\n" +
       "void main(void) {\n" +
       "   gl_FragColor = vec4(0.0, 1.0, 1.0, 1.0);\n" +
@@ -263,7 +275,7 @@ function NOMoneShaderEditor(parentElement) {
 
       // Trigger running the shader,
       if (this.shaderProgramReady) {
-         requestAnimationFrame(this.drawScene);
+         this.requestFrame(this.drawScene);
       }      
    }.bind(this);
 
@@ -329,6 +341,12 @@ function NOMoneShaderEditor(parentElement) {
       this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(vertices), this.gl.STATIC_DRAW);
    }.bind(this);
 
+   this.oldRequestedFrame;
+   this.requestFrame = function() {
+      if (this.oldRequestedFrame) cancelAnimationFrame(this.oldRequestedFrame);
+      this.oldRequestedFrame = requestAnimationFrame(this.drawScene);      
+   }.bind(this);
+
    this.drawScene = function() {
          
       this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -351,7 +369,7 @@ function NOMoneShaderEditor(parentElement) {
       this.gl.vertexAttribPointer(this.vertexPositionAttribute, 3, this.gl.FLOAT, false, 0, 0);
       this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4);
       
-      requestAnimationFrame(this.drawScene);
+      this.requestFrame(this.drawScene);
    }.bind(this);
 
    this.startWebGL = function() {
@@ -365,18 +383,36 @@ function NOMoneShaderEditor(parentElement) {
       this.setFragmentShaderCode(this.defaultFragmentShaderCode);
       this.initBuffers();
 
-      // Set onFrame function,
+      // Set triggering function,
 		if (!window.requestAnimationFrame) {
-			window.requestAnimationFrame = (function() {
-            return 
-               window.webkitRequestAnimationFrame ||
+			window.requestAnimationFrame = 
+			      window.webkitRequestAnimationFrame ||
                window.mozRequestAnimationFrame ||
                window.oRequestAnimationFrame ||
-               window.msRequestAnimationFrame ||
-               function (callback, element) {
-                  window.setTimeout(callback, 1000 / 60);
-               };
-         })();
+               window.msRequestAnimationFrame;
+      }
+      
+      if (!window.cancelAnimationFrame) {
+         window.cancelAnimationFrame = 
+               window.webkitCancelRequestAnimationFrame || 
+               window.webkitCancelAnimationFrame ||
+               window.mozCancelRequestAnimationFrame || 
+               window.mozCancelAnimationFrame ||
+               window.oCancelRequestAnimationFrame ||
+               window.oCancelAnimationFrame ||
+               window.msCancelRequestAnimationFrame ||
+               window.msCancelAnimationFrame;
+      }
+      
+      // Still not supported?
+      if (!window.requestAnimationFrame) {
+         window.requestAnimationFrame = function(callback) {
+            setTimeout(callback, 1000 / 60);
+            return callback;
+         };
+         window.cancelAnimationFrame = function(callback) {
+            clearTimeout(callback);
+         };
       }
 
       this.firstFrameTime = new Date().getTime();
