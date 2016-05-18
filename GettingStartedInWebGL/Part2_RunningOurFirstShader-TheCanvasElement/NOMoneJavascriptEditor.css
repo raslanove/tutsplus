@@ -1,0 +1,35 @@
+.NOMoneJavascriptEditor { position:absolute; right:0; top:0; left:0; bottom:0; min-width:160px; min-height:100px; background:#333; }
+.NOMoneJavascriptEditor { border:2px solid #BF4D28; border-radius:10px; box-shadow:0px 0px 3px #000; overflow: hidden; }
+.NOMoneJavascriptEditor:not(*:root) { border-radius:0; overflow:initial; }
+
+.NOMoneJavascriptEditor .RootNode { display:table; width:100%; height:100%; }
+
+.NOMoneJavascriptEditor .TabsRow { display:table-row; width:100%; }
+.NOMoneJavascriptEditor .TabsCell { display:table-cell; width:100%; }
+.NOMoneJavascriptEditor .TabsNode { display:table; table-layout:fixed; width:100%; }
+.NOMoneJavascriptEditor .TabsNode .Tabs { display:table-row; width:100%; }
+.NOMoneJavascriptEditor .TabsNode .Tab,
+.NOMoneJavascriptEditor .TabsNode .ActiveTab { display:table-cell; background:#000; color:#ddd; border:2px solid #BF4D28; box-shadow:0px 0px 3px #000; border-width:0 0 2px 2px; transition:background,200ms; }
+.NOMoneJavascriptEditor .TabsNode .Tab:first-child,
+.NOMoneJavascriptEditor .TabsNode .ActiveTab:first-child { border-width:0 0 2px 0; }
+.NOMoneJavascriptEditor .TabsNode .Tab:hover,
+.NOMoneJavascriptEditor .TabsNode .ActiveTab { background:#BF4D28; color:#fff; }
+.NOMoneJavascriptEditor .TabsNode a { display:block; cursor:pointer; text-decoration:none; text-align:center; width:100%; height:100%; padding:10px 0 10px 0; }
+
+.NOMoneJavascriptEditor .ContentRow { display:table-row; width:100%; height:100%; }
+.NOMoneJavascriptEditor .ContentCell { display:table-cell; width:100%; height:100%; }
+.NOMoneJavascriptEditor .ContentNode { position:relative; width:100%; height:100%; }
+
+.NOMoneJavascriptEditor .IframeNode { position:absolute; right:0; left:0; top:0; bottom:0; }
+.NOMoneJavascriptEditor .PlainTextEditorNode { position:absolute; right:5px; left:5px; top:5px; bottom:5px; }
+
+.NOMoneJavascriptEditor .PlainTextEditor { 
+   width:100%; height:100%; padding:0; 
+   border-style:none; resize:none; outline:none;
+   white-space:pre; word-wrap:normal; 
+   tab-size:3;
+   background:transparent; color:#fff;
+}
+
+.NOMoneJavascriptEditor .ResultIframe { width:100%; height:100%; border:none; display:block; background:#fff; }
+
