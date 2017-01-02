@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" style="width:100%; height:100%;">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+      <title>NOMone Shader Editor</title>
+
+      <script src="jquery/jquery-2.2.3.min.js"></script>
+      <script src="jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>  
+      <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
+
+      <script src="shaderEditor.js" type="text/javascript" charset="utf-8"></script>
+          
+      <script type="text/javascript">
+         window.onload = function() { 
+            var shaderEditor = new NOMoneShaderEditor(document.getElementById("shaderEditor"));
+            var shaderCode = document.getElementById("fragmentShader").textContent;
+            shaderEditor.setFragmentShaderCode(shaderCode);
+         };
+      </script>
+      
+      <link rel="stylesheet" href="jquery-ui-1.11.4.custom/jquery-ui.min.css">
+      <link rel="stylesheet" href="shaderEditor.css">      
+   </head>
+
+   <body style="background:#000; margin:0; width:100%; height:100%;">
+      <div id="shaderEditor" style="position:relative; width:100%; height:100%;"></div>
+   </body>
+
+   <!-- Shader till the end of the document. -->   
+   <script id="fragmentShader" type="x-shader/x-fragment">uniform mediump float time;
+varying lowp vec4 vertexColor;
+
+void main(void) {
+   gl_FragColor = (vertexColor*0.75) + vertexColor * (0.25 * sin(time));
+}
+</script>
+
+</html>
+
