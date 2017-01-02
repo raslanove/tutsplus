@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="description" content="Simple HTML and Javascript Editor.">
+      <meta name="keywords" content="HTML,Javascript,editor">
+      <meta name="author" content="Omar El Sayyed">
+      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+      <title>Simple HTML and Javascript Editor</title>
+            
+      <style>
+         html, body { width:100%; height:100%; margin:0; } 
+         body { background:#333; font-size:small; color:#888; font-family:"Open Sans",Tahoma,Arial,Helvetica,sans-serif; }
+         
+         h1 { font-size:large; font-weight:bold; color:#BF4D28; margin-bottom:3px; margin-top:3px; }
+         a { color:inherit; }
+                  
+         #editor1 { width:100%; height:100%; }
+      </style>
+      <link rel="stylesheet" href="../NOMoneJavascriptEditor.css">
+
+      <script src="../NOMoneJavascriptEditor.js" type="text/javascript" charset="utf-8"></script>
+          
+      <script type="text/javascript">
+         window.onload = function() { 
+            var editor1 = new NOMoneJavascriptEditor(document.getElementById("editor1"));
+            editor1.addTab("HTML", "HTML").setContent(document.getElementById("srcHTML").textContent.replace("&lt;","<"));
+            editor1.addTab("JS", "JS").setContent(document.getElementById("srcJavascript").textContent).scrollToLine(21).show();
+            editor1.addTab("CSS", "CSS").setContent(document.getElementById("srcCSS").textContent);
+            editor1.addTab("Result", "Result");
+         };
+      </script>
+   
+      <script id="srcHTML" type="text/srcHTML"><!DOCTYPE html>
+<html>
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+   </head>
+
+   <body>
+      <canvas id="glCanvas" width="1" height="1"></canvas>
+   </body>
+</html></script>
+      
+      <script id="srcCSS" type="text/srcCSS">html, body { height: 100%; }
+body { margin: 0; }
+
+canvas { 
+   display: block;
+   width: 100%; height: 100%;
+   background: #000; 
+}</script>
+
+      <script id="srcJavascript" type="text/srcJavascript">var glContext;
+
+window.addEventListener('load', function() {
+	initialize();
+}, false);
+
+function initialize() {
+
+	// Get canvas,
+	var glCanvas = document.getElementById("glCanvas");
+
+	// Context creation error listener,
+	var errorMessage = "Couldn't create a WebGL context!";
+	function onContextCreationError(event) {
+		glCanvas.removeEventListener("webglcontextcreationerror", onContextCreationError, false);
+		if (event.statusMessage) errorMessage = event.statusMessage;
+	}
+	glCanvas.addEventListener("webglcontextcreationerror", onContextCreationError, false);
+
+	// Attempt getting a WebGL context,
+	glCanvas.getContext("2d");
+	glContext = glCanvas.getContext("webgl") || glCanvas.getContext("experimental-webgl");   
+
+	// If failed,
+	if (!glContext) {
+		alert(errorMessage);
+		return false;
+	} else {
+		alert("WebGL context successfully created!");
+	}
+
+	return true;
+}</script>
+
+   </head>
+
+   <body>
+      <div id="editor1"></div>      
+   </body>
+   
+</html>
+
