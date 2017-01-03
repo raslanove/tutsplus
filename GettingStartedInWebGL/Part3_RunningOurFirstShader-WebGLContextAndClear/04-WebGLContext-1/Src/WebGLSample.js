@@ -2,28 +2,28 @@ var glContext;
 
 function initialize() {
 
-	// Get canvas,
-	var glCanvas = document.getElementById("glCanvas");
+    // Get canvas,
+    var glCanvas = document.getElementById("glCanvas");
 
-	// Context creation error listener,
-	var errorMessage = "Couldn't create a WebGL context!";
-	function onContextCreationError(event) {
-		glCanvas.removeEventListener("webglcontextcreationerror", onContextCreationError, false);
-		if (event.statusMessage) errorMessage = event.statusMessage;
-	}
-	glCanvas.addEventListener("webglcontextcreationerror", onContextCreationError, false);
+    // Context creation error listener,
+    var errorMessage = "Couldn't create a WebGL context!";
+    function onContextCreationError(event) {
+        glCanvas.removeEventListener("webglcontextcreationerror", onContextCreationError, false);
+        if (event.statusMessage) errorMessage = event.statusMessage;
+    }
+    glCanvas.addEventListener("webglcontextcreationerror", onContextCreationError, false);
 
-	// Attempt getting a WebGL context,
-	glContext = glCanvas.getContext("webgl") || glCanvas.getContext("experimental-webgl");   
+    // Attempt getting a WebGL context,
+    glContext = glCanvas.getContext("webgl") || glCanvas.getContext("experimental-webgl");   
 
-	// If failed,
-	if (!glContext) {
-		alert(errorMessage);
-		return false;
-	} else {
-		alert("WebGL context successfully created!");
-	}
+    // If failed,
+    if (!glContext) {
+        alert(errorMessage);
+        return false;
+    } else {
+        alert("WebGL context successfully created!");
+    }
 
-	return true;
+    return true;
 }
 
