@@ -199,17 +199,19 @@ function NOMoneJavascriptEditor(parentElement) {
                   
       // Create tab event handlers,
       var hideCurrentTabFunction = function() {
+         if (typeof textArea !== 'undefined') textArea.oldScrollTop = textArea.scrollTop;
          this.destroyIframe();
          newElement.style.display = "none";
          newTab.className = "Tab";
       }.bind(this);
 
       newTabAnchor.onclick = function() {
-            
+           
          // Hide the previous tab and show the new one,
          if (this.hideCurrentTab) this.hideCurrentTab();
          this.hideCurrentTab = hideCurrentTabFunction;
          newElement.style.display = "initial";
+         if (typeof textArea !== 'undefined') textArea.scrollTop = textArea.oldScrollTop;
          newTab.className = "ActiveTab";
          
          // If this is result, update it first,
@@ -284,6 +286,7 @@ function NOMoneJavascriptEditor(parentElement) {
             // Do the scrolling,
             var destinationY = (lineNumber - 1) * lineHeight;
             textArea.scrollTop = destinationY;
+            textArea.oldScrollTop = destinationY;
 
             // Restore the old container visibility state,
             newElement.style.display = oldDisplayStyle;
