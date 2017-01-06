@@ -12,7 +12,6 @@ function initialize() {
 	// Context creation error listener,
 	var errorMessage = "Couldn't create a WebGL context!";
 	function onContextCreationError(event) {
-		glCanvas.removeEventListener("webglcontextcreationerror", onContextCreationError, false);
 		if (event.statusMessage) errorMessage = event.statusMessage;
 	}
 	glCanvas.addEventListener("webglcontextcreationerror", onContextCreationError, false);
@@ -20,6 +19,7 @@ function initialize() {
 	// Attempt getting a WebGL context,
 	glCanvas.getContext("2d");
 	glContext = glCanvas.getContext("webgl") || glCanvas.getContext("experimental-webgl");   
+	glCanvas.removeEventListener("webglcontextcreationerror", onContextCreationError, false);
 
 	// If failed,
 	if (!glContext) {
